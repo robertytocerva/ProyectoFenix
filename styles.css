@@ -17,16 +17,16 @@
     --radius-md: 8px;
     --radius-full: 9999px;
 
-    /* Sombras (más sutiles) */
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+    /* Sombras (ahora el default) */
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
 
-    /* NUEVA: Paleta Fenix Forestal (Modo Claro) */
-    --bg: #F9FAFB;        /* Fondo muy claro */
-    --card: #FFFFFF;      /* Tarjetas blancas */
-    --text-primary: #1A1A1A;  /* Gris oscuro del logo */
-    --text-secondary: #4A4A4A; /* Gris medio del logo */
-    --border: #E5E7EB;    
+    /* NUEVA: Paleta Fenix Forestal (ÚNICA) */
+    --bg: #0A0F1A;        /* Azul/gris muy oscuro */
+    --card: #1E293B;      /* Azul/gris más claro */
+    --text-primary: #F1F5F9;  
+    --text-secondary: #94A3B8;
+    --border: #334155;    
     
     /* Colores de estado y acento (del logo) */
     --accent: #F37021;    /* Naranja principal */
@@ -36,30 +36,14 @@
     --danger: #DC2626;    /* Un rojo de peligro claro */
 
     /* Colores para Shimmer (Carga) */
-    --shimmer-bg: #f3f4f6;
-    --shimmer-highlight: #e5e7eb;
+    --shimmer-bg: #1f2937;
+    --shimmer-highlight: #374151;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* Sombras para modo oscuro */
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
-        
-        /* NUEVA: Paleta Fenix Forestal (Modo Oscuro) */
-        --bg: #0A0F1A;        /* Azul/gris muy oscuro */
-        --card: #1E293B;      /* Azul/gris más claro */
-        --text-primary: #F1F5F9;  
-        --text-secondary: #94A3B8;
-        --border: #334155;
+/* ELIMINADO: @media (prefers-color-scheme: dark) */
+/* Todas las variables de modo oscuro se han movido al :root principal */
+/* y la lógica de modo claro se ha eliminado. */
 
-        /* Los acentos brillantes del logo funcionan bien en ambos modos */
-        
-        /* Colores para Shimmer (Carga) */
-        --shimmer-bg: #1f2937;
-        --shimmer-highlight: #374151;
-    }
-}
 
 /* ===== 2. Reset Ligero y Base ===== */
 *,
@@ -68,17 +52,29 @@
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100vh; /* Asegura que el gradiente cubra todo */
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
     font-family: var(--font-sans);
-    background-color: var(--bg);
+    /* MODIFICADO: de background-color a background */
+    background: var(--bg); /* Fallback */
     color: var(--text-primary);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* MODIFICADO: Aplicar gradiente de fondo único */
+body {
+    /* Un desvanecido verde-oscuro muy sutil */
+    background: linear-gradient(180deg, #0F1A12 0%, var(--bg) 70%);
+    background-attachment: fixed;
 }
 
 h1, h2, h3, p {
