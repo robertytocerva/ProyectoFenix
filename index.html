@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel IoT — Ambiente Interior</title>
+    <title>Panel IoT — Fenix Forestal</title>
     <meta name="description" content="Dashboard de monitoreo en tiempo real de condiciones ambientales.">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -12,10 +12,18 @@
     <div class="container">
         <!-- ===== CABECERA ===== -->
         <header class="header">
-            <div class="header__logo">
-                <h1>Panel IoT — Ambiente Interior</h1>
+            <!-- NUEVO: Logo de la marca -->
+            <div class="header__brand-logo">
+                <!-- NOTA: Esta URL es un placeholder. Deberías cambiarla por la ruta local a tu logo (ej. /images/logo.svg) -->
+                <img src="LogoFenix.png" alt="Logotipo de Fenix Forestal">
+            </div>
+            
+            <!-- Texto del logo (anteriormente header__logo) -->
+            <div class="header__logo-text">
+                <h1>Panel IoT — Fenix Forestal</h1>
                 <p>Monitoreo en tiempo real de condiciones ambientales</p>
             </div>
+
             <div class="header__status">
                 <span>Estado del Sistema:</span>
                 <span class="pill pill--ok js-system-status" aria-live="polite">Operacional</span>
@@ -119,7 +127,7 @@
 
         <!-- ===== PIE DE PÁGINA ===== -->
         <footer class="footer">
-            <p>&copy; 2025 Sistema de Monitoreo Fenix. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Fenix Forestal. Todos los derechos reservados.</p>
         </footer>
     </div>
 
