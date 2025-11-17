@@ -1,0 +1,400 @@
+/* * styles.css
+ * Hoja de estilos pura para el Dashboard IoT.
+ * Paleta de colores "Fenix Forestal" y animaciones de entrada.
+ */
+
+/* ===== 1. Variables y Configuración Global ===== */
+:root {
+    /* Tipografía */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    
+    /* Animaciones */
+    --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+    --transition-fast: all 200ms var(--ease-out);
+
+    /* Geometría */
+    --radius-lg: 16px;
+    --radius-md: 8px;
+    --radius-full: 9999px;
+
+    /* Sombras (ahora el default) */
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+
+    /* NUEVA: Paleta Fenix Forestal (ÚNICA) */
+    --bg: #0A0F1A;        /* Azul/gris muy oscuro */
+    --card: #1E293B;      /* Azul/gris más claro */
+    --text-primary: #F1F5F9;  
+    --text-secondary: #94A3B8;
+    --border: #334155;    
+    
+    /* Colores de estado y acento (del logo) */
+    --accent: #F37021;    /* Naranja principal */
+    --accent-rgb: 243, 112, 33; /* Para efecto 'glow' en hover */
+    --ok: #3A8E3D;        /* Verde de los árboles */
+    --warn: #E54D2E;    /* Naranja/rojo secundario */
+    --danger: #DC2626;    /* Un rojo de peligro claro */
+
+    /* Colores para Shimmer (Carga) */
+    --shimmer-bg: #1f2937;
+    --shimmer-highlight: #374151;
+}
+
+/* ELIMINADO: @media (prefers-color-scheme: dark) */
+/* Todas las variables de modo oscuro se han movido al :root principal */
+/* y la lógica de modo claro se ha eliminado. */
+
+
+/* ===== 2. Reset Ligero y Base ===== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100vh; /* Asegura que el gradiente cubra todo */
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    /* MODIFICADO: de background-color a background */
+    background: var(--bg); /* Fallback */
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* MODIFICADO: Aplicar gradiente de fondo único */
+body {
+    /* Un desvanecido verde-oscuro muy sutil */
+    background: linear-gradient(180deg, #0F1A12 0%, var(--bg) 70%);
+    background-attachment: fixed;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+/* ===== 3. Layout Principal ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinear verticalmente */
+    flex-wrap: wrap;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+/* NUEVO: Estilos del Logo */
+.header__brand-logo {
+    flex-shrink: 0; /* Evita que el logo se encoja */
+    opacity: 0; /* Oculto para animación */
+    animation: fadeIn 0.8s var(--ease-out) 0s forwards;
+}
+
+.header__brand-logo img {
+    max-height: 50px; /* Ajusta la altura de tu logo */
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle; /* Mejor alineación */
+}
+
+.header__logo-text {
+    flex-grow: 1; /* Ocupa el espacio restante */
+    opacity: 0; /* Oculto para animación */
+    animation: fadeIn 0.8s var(--ease-out) 0.2s forwards;
+}
+
+.header__logo-text h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.header__logo-text p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.header__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0; /* Oculto para animación */
+    animation: fadeIn 0.8s var(--ease-out) 0.4s forwards;
+}
+
+.footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* ===== 4. Grid del Dashboard (Responsive) ===== */
+.dashboard-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr; /* 1 columna por defecto (< 480px) */
+}
+
+/* NUEVO: Delay escalonado para las tarjetas */
+.dashboard-grid .card:nth-child(1) { animation-delay: 0.3s; }
+.dashboard-grid .card:nth-child(2) { animation-delay: 0.4s; }
+.dashboard-grid .card:nth-child(3) { animation-delay: 0.5s; }
+.dashboard-grid .card:nth-child(4) { animation-delay: 0.6s; }
+
+
+@media (min-width: 480px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    }
+}
+
+@media (min-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    }
+}
+
+/* ===== 5. Tarjetas de Sensor (.card) ===== */
+.card {
+    background-color: var(--card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    transition: var(--transition-fast);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 190px;
+    content-visibility: auto;
+    
+    /* NUEVO: Animación de entrada */
+    opacity: 0;
+    animation: fadeIn 0.6s var(--ease-out) forwards;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Elevación más pronunciada */
+    /* NUEVO: Efecto "glow" vistoso con el color de acento */
+    box-shadow: var(--shadow-lg), 0 0 25px 0 rgba(var(--accent-rgb), 0.2);
+}
+
+.card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.25rem 0;
+}
+
+.card__header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.card__icon {
+    width: 24px;
+    height: 24px;
+    color: var(--text-secondary);
+    /* NUEVO: Transición para el efecto de hover */
+    transition: var(--transition-fast), transform 0.15s var(--ease-out);
+}
+
+.card:hover .card__icon {
+    color: var(--accent);
+    transform: scale(1.15); /* Animación vistosa en icono */
+}
+
+.card__body {
+    padding: 0.5rem 1.25rem;
+}
+
+.card__value-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    min-height: 54px; /* Evita salto de layout en carga */
+}
+
+.card__value {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    transition: var(--transition-fast);
+}
+
+.card__unit {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding-left: 0.15rem;
+}
+
+.card__value--alert {
+    font-size: 1.5rem; /* Más pequeño para texto de alerta */
+    font-weight: 700;
+    color: var(--danger);
+}
+
+.card__footer {
+    padding: 0 1.25rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 34px; /* Alineación vertical */
+}
+
+.card__note {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Modificadores de estado de tarjeta */
+.card--warn .card__header h2,
+.card--warn .card__value,
+.card--warn .card__icon {
+    color: var(--warn);
+}
+
+.card--danger .card__header h2,
+.card--danger .card__icon {
+    color: var(--danger);
+}
+
+/* ===== 6. Componentes (Pills, Chips, Badges) ===== */
+.pill {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+/* Colores de Píldora (con 15% opacidad) */
+.pill--ok { background-color: rgba(58, 142, 61, 0.15); color: var(--ok); }
+.pill--warn { background-color: rgba(229, 77, 46, 0.15); color: var(--warn); }
+.pill--danger { background-color: rgba(220, 38, 38, 0.15); color: var(--danger); }
+
+.chip {
+    font-size: 0.8rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+}
+
+.card__chips {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.9rem;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    color: var(--text-secondary);
+}
+
+/* ===== 7. Sección de Tendencias Rápidas ===== */
+.quick-trends {
+    margin-top: 2rem;
+    content-visibility: auto;
+}
+
+.quick-trends h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.quick-trends__wrapper {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* ===== 8. Animaciones ===== */
+
+/* NUEVO: Animación de Desvanecido (Fade In) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* Sutil movimiento hacia arriba */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación de Pulso para Alertas */
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.98); }
+}
+
+.pill--danger,
+.pill--warn {
+    /* Aplica pulso a píldoras de alerta */
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Animación de Shimmer (Carga) - Mejorada */
+@keyframes shimmer {
+    0% { transform: translateX(-100%) scale(1.1); opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100%) scale(1.1); opacity: 0.5; }
+}
+
+.card.is-loading .card__value {
+    background-color: var(--shimmer-bg);
+    color: transparent; /* Oculta texto si lo hubiera */
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+    width: 80%; /* Ancho del placeholder */
+}
+
+.card.is-loading .card__value::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradiente más pronunciado */
+    background: linear-gradient(100deg, transparent, var(--shimmer-highlight), transparent);
+    animation: shimmer 2s infinite linear; /* Más lento */
+    opacity: 0.8;
+}
