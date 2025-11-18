@@ -40,9 +40,7 @@
     --shimmer-highlight: #374151;
 }
 
-/* ELIMINADO: @media (prefers-color-scheme: dark) */
-/* Todas las variables de modo oscuro se han movido al :root principal */
-/* y la lógica de modo claro se ha eliminado. */
+
 
 
 /* ===== 2. Reset Ligero y Base ===== */

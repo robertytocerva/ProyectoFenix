@@ -13,9 +13,9 @@
     <div class="container">
         <!-- ===== CABECERA ===== -->
         <header class="header">
-            <!-- NUEVO: Logo de la marca -->
+            
             <div class="header__brand-logo">
-                <!-- NOTA: Esta URL es un placeholder. Deberías cambiarla por la ruta local a tu logo (ej. /images/logo.svg) -->
+                
                 <img src="LogoFenix.png" alt="Logotipo de Fenix Forestal">
             </div>
             
@@ -141,201 +141,201 @@
     </div>
 
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // 1) Validar sesión
-    const userId = sessionStorage.getItem('userId');
-    if (!userId) {
-        window.location.href = 'index.html';
-        return;
-    }
-    window.userId = Number(userId);
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1) Validar sesión
+            const userId = sessionStorage.getItem('userId');
+            if (!userId) {
+                window.location.href = 'index.html';
+                return;
+            }
+            window.userId = Number(userId);
 
-    // 2) Referencias a elementos del DOM
-    const tempValueEl = document.querySelector('.temp__value');
-    const tempStatusEl = document.querySelector('.temp__status');
-    const tempCard = tempValueEl ? tempValueEl.closest('.card') : null;
+            // 2) Referencias a elementos del DOM
+            const tempValueEl = document.querySelector('.temp__value');
+            const tempStatusEl = document.querySelector('.temp__status');
+            const tempCard = tempValueEl ? tempValueEl.closest('.card') : null;
 
-    const humValueEl = document.querySelector('.humidity__value');
-    const humStatusEl = document.querySelector('.humidity__status');
-    const humCard = humValueEl ? humValueEl.closest('.card') : null;
+            const humValueEl = document.querySelector('.humidity__value');
+            const humStatusEl = document.querySelector('.humidity__status');
+            const humCard = humValueEl ? humValueEl.closest('.card') : null;
 
-    const fireStateEl = document.querySelector('.fire__state');
-    const fireStatusEl = document.querySelector('.fire__status');
-    const fireMetaEl = fireStateEl ? fireStateEl.closest('.card').querySelector('.card__meta') : null;
-    const fireCard = fireStateEl ? fireStateEl.closest('.card') : null;
+            const fireStateEl = document.querySelector('.fire__state');
+            const fireStatusEl = document.querySelector('.fire__status');
+            const fireMetaEl = fireStateEl ? fireStateEl.closest('.card').querySelector('.card__meta') : null;
+            const fireCard = fireStateEl ? fireStateEl.closest('.card') : null;
 
-    const smokeStateEl = document.querySelector('.smoke__state');
-    const smokeStatusEl = document.querySelector('.smoke__status');
-    const smokeCard = smokeStateEl ? smokeStateEl.closest('.card') : null;
+            const smokeStateEl = document.querySelector('.smoke__state');
+            const smokeStatusEl = document.querySelector('.smoke__status');
+            const smokeCard = smokeStateEl ? smokeStateEl.closest('.card') : null;
 
-    const systemStatusEl = document.querySelector('.js-system-status');
-    const logoutBtn = document.querySelector('.js-logout');
+            const systemStatusEl = document.querySelector('.js-system-status');
+            const logoutBtn = document.querySelector('.js-logout');
 
-    const cards = [tempCard, humCard, fireCard, smokeCard].filter(Boolean);
-    cards.forEach(card => card.classList.add('is-loading'));
+            const cards = [tempCard, humCard, fireCard, smokeCard].filter(Boolean);
+            cards.forEach(card => card.classList.add('is-loading'));
 
-    // Cerrar sesión
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            sessionStorage.removeItem('userId');
-            window.location.href = 'index.html';
+            // Cerrar sesión
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    sessionStorage.removeItem('userId');
+                    window.location.href = 'index.html';
+                });
+            }
+
+            // Helpers de estado visual
+            const setCardState = (card, status) => {
+                if (!card) return;
+                const stateClasses = ['card--ok', 'card--warn', 'card--danger'];
+                stateClasses.forEach(cls => card.classList.remove(cls));
+                if (status === 'ok') card.classList.add('card--ok');
+                else if (status === 'warn') card.classList.add('card--warn');
+                else if (status === 'danger') card.classList.add('card--danger');
+            };
+
+            const setPillState = (pill, status, text) => {
+                if (!pill) return;
+                pill.classList.remove('pill--ok', 'pill--warn', 'pill--danger');
+                if (status === 'ok') pill.classList.add('pill--ok');
+                else if (status === 'warn') pill.classList.add('pill--warn');
+                else if (status === 'danger') pill.classList.add('pill--danger');
+                if (text) pill.textContent = text;
+            };
+
+            // 3) Llamada a la API (OJO: SIN ESPACIOS al inicio)
+            const baseUrl = 'https://ed10f47b20b7.ngrok-free.app';
+            const endpoint = `${baseUrl}/api/lecturas/usuario/${encodeURIComponent(userId)}/ultima`;
+            console.log('Llamando a:', endpoint);
+
+            fetch(endpoint, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                }
+            })
+                .then(async resp => {
+                    console.log('Respuesta HTTP:', resp.status, resp.statusText, 'desde', resp.url);
+
+                    const contentType = resp.headers.get('content-type') || '';
+
+                    if (!resp.ok) {
+                        const errorBody = await resp.text();
+                        console.error('Cuerpo de error (no JSON):', errorBody);
+                        throw new Error(`Error HTTP ${resp.status}: ${resp.statusText}`);
+                    }
+
+                    if (!contentType.includes('application/json')) {
+                        const body = await resp.text();
+                        console.error('La respuesta no es JSON. Content-Type:', contentType);
+                        console.error('Cuerpo recibido:', body);
+                        throw new Error('La API devolvió HTML u otro formato, no JSON.');
+                    }
+
+                    return resp.json();
+                })
+                .then(data => {
+                    console.log('JSON recibido de la API:', data);
+
+                    // Quitar skeleton
+                    cards.forEach(card => card.classList.remove('is-loading'));
+
+                    // Estado general del sistema
+                    if (systemStatusEl) {
+                        systemStatusEl.textContent = 'Operacional';
+                        systemStatusEl.classList.remove('pill--danger', 'pill--warn');
+                        systemStatusEl.classList.add('pill--ok');
+                    }
+
+                    // === Temperatura ===
+                    const temp = Number(data.temperaturaC);
+                    if (!Number.isNaN(temp) && tempValueEl && tempStatusEl && tempCard) {
+                        tempValueEl.textContent = temp.toFixed(1);
+
+                        let state = 'ok';
+                        let label = 'Óptimo';
+                        if (temp < 15 || temp > 35) {
+                            state = 'danger';
+                            label = 'Crítico';
+                        } else if (temp < 18 || temp > 30) {
+                            state = 'warn';
+                            label = 'Alerta';
+                        }
+
+                        setCardState(tempCard, state);
+                        setPillState(tempStatusEl, state, label);
+                    }
+
+                    // === Humedad ===
+                    const hum = Number(data.humedadRelativa);
+                    if (!Number.isNaN(hum) && humValueEl && humStatusEl && humCard) {
+                        humValueEl.textContent = hum.toFixed(1);
+
+                        let state = 'ok';
+                        let label = 'Estable';
+                        if (hum < 30 || hum > 80) {
+                            state = 'danger';
+                            label = 'Crítica';
+                        } else if (hum < 40 || hum > 60) {
+                            state = 'warn';
+                            label = 'Alerta';
+                        }
+
+                        setCardState(humCard, state);
+                        setPillState(humStatusEl, state, label);
+                    }
+
+                    // === Fuego Detectado ===
+                    const fuego = Boolean(data.fuegoDetectado);
+                    if (fireStateEl && fireStatusEl && fireCard) {
+                        if (fuego) {
+                            fireStateEl.textContent = '¡FUEGO DETECTADO!';
+                            if (fireMetaEl) fireMetaEl.textContent = 'Revisar y evacuar la zona.';
+                            setCardState(fireCard, 'danger');
+                            setPillState(fireStatusEl, 'danger', 'ALERTA');
+                        } else {
+                            fireStateEl.textContent = 'Normal';
+                            if (fireMetaEl) fireMetaEl.textContent = 'Sin detección de llamas';
+                            setCardState(fireCard, 'ok');
+                            setPillState(fireStatusEl, 'ok', 'Normal');
+                        }
+                    }
+
+                    // === Humo / Gas (gasPpm) ===
+                    const gas = Number(data.gasPpm);
+                    if (!Number.isNaN(gas) && smokeStateEl && smokeStatusEl && smokeCard) {
+                        let state = 'ok';
+                        let label = 'Normal';
+                        let message = 'Sin humo detectado';
+
+                        if (gas >= 800) {
+                            state = 'danger';
+                            label = 'ALERTA';
+                            message = '¡Humo denso detectado!';
+                            smokeStateEl.classList.add('card__value--alert');
+                        } else if (gas >= 400) {
+                            state = 'warn';
+                            label = 'PRECAUCIÓN';
+                            message = 'Presencia de humo';
+                            smokeStateEl.classList.add('card__value--alert');
+                        } else {
+                            smokeStateEl.classList.remove('card__value--alert');
+                        }
+
+                        smokeStateEl.textContent = `${message} (${gas.toFixed(0)} ppm)`;
+                        setCardState(smokeCard, state);
+                        setPillState(smokeStatusEl, state, label);
+                    }
+                })
+                .catch(err => {
+                console.error('Error en fetch o parseo:', err);
+                cards.forEach(card => card.classList.remove('is-loading'));
+                if (systemStatusEl) {
+                    systemStatusEl.textContent = 'Sin conexión';
+                    systemStatusEl.classList.remove('pill--ok', 'pill--warn');
+                    systemStatusEl.classList.add('pill--danger');
+                }
+            });
         });
-    }
-
-    // Helpers de estado visual
-    const setCardState = (card, status) => {
-        if (!card) return;
-        const stateClasses = ['card--ok', 'card--warn', 'card--danger'];
-        stateClasses.forEach(cls => card.classList.remove(cls));
-        if (status === 'ok') card.classList.add('card--ok');
-        else if (status === 'warn') card.classList.add('card--warn');
-        else if (status === 'danger') card.classList.add('card--danger');
-    };
-
-    const setPillState = (pill, status, text) => {
-        if (!pill) return;
-        pill.classList.remove('pill--ok', 'pill--warn', 'pill--danger');
-        if (status === 'ok') pill.classList.add('pill--ok');
-        else if (status === 'warn') pill.classList.add('pill--warn');
-        else if (status === 'danger') pill.classList.add('pill--danger');
-        if (text) pill.textContent = text;
-    };
-
-    // 3) Llamada a la API (OJO: SIN ESPACIOS al inicio)
-    const baseUrl = 'https://ed10f47b20b7.ngrok-free.app';
-    const endpoint = `${baseUrl}/api/lecturas/usuario/${encodeURIComponent(userId)}/ultima`;
-    console.log('Llamando a:', endpoint);
-
-    fetch(endpoint, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'ngrok-skip-browser-warning': 'true'
-        }
-    })
-        .then(async resp => {
-            console.log('Respuesta HTTP:', resp.status, resp.statusText, 'desde', resp.url);
-
-            const contentType = resp.headers.get('content-type') || '';
-
-            if (!resp.ok) {
-                const errorBody = await resp.text();
-                console.error('Cuerpo de error (no JSON):', errorBody);
-                throw new Error(`Error HTTP ${resp.status}: ${resp.statusText}`);
-            }
-
-            if (!contentType.includes('application/json')) {
-                const body = await resp.text();
-                console.error('La respuesta no es JSON. Content-Type:', contentType);
-                console.error('Cuerpo recibido:', body);
-                throw new Error('La API devolvió HTML u otro formato, no JSON.');
-            }
-
-            return resp.json();
-        })
-        .then(data => {
-            console.log('JSON recibido de la API:', data);
-
-            // Quitar skeleton
-            cards.forEach(card => card.classList.remove('is-loading'));
-
-            // Estado general del sistema
-            if (systemStatusEl) {
-                systemStatusEl.textContent = 'Operacional';
-                systemStatusEl.classList.remove('pill--danger', 'pill--warn');
-                systemStatusEl.classList.add('pill--ok');
-            }
-
-            // === Temperatura ===
-            const temp = Number(data.temperaturaC);
-            if (!Number.isNaN(temp) && tempValueEl && tempStatusEl && tempCard) {
-                tempValueEl.textContent = temp.toFixed(1);
-
-                let state = 'ok';
-                let label = 'Óptimo';
-                if (temp < 15 || temp > 35) {
-                    state = 'danger';
-                    label = 'Crítico';
-                } else if (temp < 18 || temp > 30) {
-                    state = 'warn';
-                    label = 'Alerta';
-                }
-
-                setCardState(tempCard, state);
-                setPillState(tempStatusEl, state, label);
-            }
-
-            // === Humedad ===
-            const hum = Number(data.humedadRelativa);
-            if (!Number.isNaN(hum) && humValueEl && humStatusEl && humCard) {
-                humValueEl.textContent = hum.toFixed(1);
-
-                let state = 'ok';
-                let label = 'Estable';
-                if (hum < 30 || hum > 80) {
-                    state = 'danger';
-                    label = 'Crítica';
-                } else if (hum < 40 || hum > 60) {
-                    state = 'warn';
-                    label = 'Alerta';
-                }
-
-                setCardState(humCard, state);
-                setPillState(humStatusEl, state, label);
-            }
-
-            // === Fuego Detectado ===
-            const fuego = Boolean(data.fuegoDetectado);
-            if (fireStateEl && fireStatusEl && fireCard) {
-                if (fuego) {
-                    fireStateEl.textContent = '¡FUEGO DETECTADO!';
-                    if (fireMetaEl) fireMetaEl.textContent = 'Revisar y evacuar la zona.';
-                    setCardState(fireCard, 'danger');
-                    setPillState(fireStatusEl, 'danger', 'ALERTA');
-                } else {
-                    fireStateEl.textContent = 'Normal';
-                    if (fireMetaEl) fireMetaEl.textContent = 'Sin detección de llamas';
-                    setCardState(fireCard, 'ok');
-                    setPillState(fireStatusEl, 'ok', 'Normal');
-                }
-            }
-
-            // === Humo / Gas (gasPpm) ===
-            const gas = Number(data.gasPpm);
-            if (!Number.isNaN(gas) && smokeStateEl && smokeStatusEl && smokeCard) {
-                let state = 'ok';
-                let label = 'Normal';
-                let message = 'Sin humo detectado';
-
-                if (gas >= 800) {
-                    state = 'danger';
-                    label = 'ALERTA';
-                    message = '¡Humo denso detectado!';
-                    smokeStateEl.classList.add('card__value--alert');
-                } else if (gas >= 400) {
-                    state = 'warn';
-                    label = 'PRECAUCIÓN';
-                    message = 'Presencia de humo';
-                    smokeStateEl.classList.add('card__value--alert');
-                } else {
-                    smokeStateEl.classList.remove('card__value--alert');
-                }
-
-                smokeStateEl.textContent = `${message} (${gas.toFixed(0)} ppm)`;
-                setCardState(smokeCard, state);
-                setPillState(smokeStatusEl, state, label);
-            }
-        })
-        .catch(err => {
-        console.error('Error en fetch o parseo:', err);
-        cards.forEach(card => card.classList.remove('is-loading'));
-        if (systemStatusEl) {
-            systemStatusEl.textContent = 'Sin conexión';
-            systemStatusEl.classList.remove('pill--ok', 'pill--warn');
-            systemStatusEl.classList.add('pill--danger');
-        }
-    });
-});
 </script>
 
 
