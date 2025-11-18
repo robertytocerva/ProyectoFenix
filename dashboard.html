@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,18 @@
     <link rel="icon" href="LogoFenix.png" type="image/png">
     <link rel="stylesheet" href="dash-styles.css">
 </head>
+
 <body>
 
     <div class="container">
         <!-- ===== CABECERA ===== -->
         <header class="header">
-            
+
             <div class="header__brand-logo">
-                
+
                 <img src="LogoFenix.png" alt="Logotipo de Fenix Forestal">
             </div>
-            
+
             <!-- Texto del logo  -->
             <div class="header__logo-text">
                 <h1>Fenix Forestal - Dashboard</h1>
@@ -32,7 +34,7 @@
             </div>
 
             <!-- Sección de sesión / logout -->
-            <div class ="info_sesion">
+            <div class="info_sesion">
                 <span class="pill pill--danger js-logout" aria-live="polite">Cerrar sesión</span>
             </div>
         </header>
@@ -46,7 +48,11 @@
                     <header class="card__header">
                         <h2>Temperatura</h2>
                         <!-- Icono: Termómetro -->
-                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+                        </svg>
                     </header>
                     <div class="card__body">
                         <div class="card__value-wrapper">
@@ -64,7 +70,9 @@
                 <article class="card card--humidity card--ok" style="--anim-delay: 0.2s;">
                     <div class="card__header">
                         <h2>Humedad</h2>
-                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Icono de humedad">
+                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-label="Icono de humedad">
                             <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0L12 2.69z"></path>
                         </svg>
                     </div>
@@ -84,9 +92,15 @@
                 <article class="card card--fire card--ok" style="--anim-delay: 0.3s;">
                     <div class="card__header">
                         <h2>Detector de Fuego</h2>
-                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Icono de llama (fuego)">
-                            <path d="M12.83 2.14C11.39 1.18 9.61 1.18 8.17 2.14C5.09 4.19 3 8.23 3 12.55C3 17.77 7.23 22 12 22s9-4.23 9-9.45c0-4.32-2.09-8.36-5.17-10.41z"></path>
-                            <path d="M12 17a4.99 4.99 0 0 0 4.99-5c0-2.76-2.23-5-4.99-5s-4.99 2.24-4.99 5A4.99 4.99 0 0 0 12 17z"></path>
+                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-label="Icono de llama (fuego)">
+                            <path
+                                d="M12.83 2.14C11.39 1.18 9.61 1.18 8.17 2.14C5.09 4.19 3 8.23 3 12.55C3 17.77 7.23 22 12 22s9-4.23 9-9.45c0-4.32-2.09-8.36-5.17-10.41z">
+                            </path>
+                            <path
+                                d="M12 17a4.99 4.99 0 0 0 4.99-5c0-2.76-2.23-5-4.99-5s-4.99 2.24-4.99 5A4.99 4.99 0 0 0 12 17z">
+                            </path>
                         </svg>
                     </div>
                     <div class="card__body">
@@ -105,14 +119,17 @@
                     <header class="card__header">
                         <h2>Detector de Humo</h2>
                         <!-- Icono: Alerta Humo (Nube) -->
-                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="card__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 18H2a2 2 0 0 0-2 2v2h24v-2a2 2 0 0 0-2-2Z"></path>
                             <path d="M20.2 15.8A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.2"></path>
                         </svg>
                     </header>
                     <div class="card__body">
                         <div class="card__value-wrapper">
-                            <span class="card__value card__value--alert js-value smoke__state" aria-live="polite">¡Humo Detectado!</span>
+                            <span class="card__value card__value--alert js-value smoke__state" aria-live="polite">¡Humo
+                                Detectado!</span>
                         </div>
                     </div>
                     <footer class="card__footer">
@@ -172,7 +189,6 @@
             const logoutBtn = document.querySelector('.js-logout');
 
             const cards = [tempCard, humCard, fireCard, smokeCard].filter(Boolean);
-            cards.forEach(card => card.classList.add('is-loading'));
 
             // Cerrar sesión
             if (logoutBtn) {
@@ -201,143 +217,154 @@
                 if (text) pill.textContent = text;
             };
 
-            // 3) Llamada a la API (OJO: SIN ESPACIOS al inicio)
-            const baseUrl = 'https://2fd324cfbe21.ngrok-free.app';
-            const endpoint = `${baseUrl}/api/lecturas/usuario/${encodeURIComponent(userId)}/ultima`;
-            console.log('Llamando a:', endpoint);
+            // 3) Función para obtener datos
+            const fetchData = () => {
+                // Mostrar loading solo si es la primera carga o si se desea indicar actualización
+                // cards.forEach(card => card.classList.add('is-loading')); 
 
-            fetch(endpoint, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'ngrok-skip-browser-warning': 'true'
-                }
-            })
-                .then(async resp => {
-                    console.log('Respuesta HTTP:', resp.status, resp.statusText, 'desde', resp.url);
+                const baseUrl = 'https://2fd324cfbe21.ngrok-free.app';
+                const endpoint = `${baseUrl}/api/lecturas/usuario/${encodeURIComponent(userId)}/ultima`;
+                console.log('Actualizando datos desde:', endpoint);
 
-                    const contentType = resp.headers.get('content-type') || '';
-
-                    if (!resp.ok) {
-                        const errorBody = await resp.text();
-                        console.error('Cuerpo de error (no JSON):', errorBody);
-                        throw new Error(`Error HTTP ${resp.status}: ${resp.statusText}`);
-                    }
-
-                    if (!contentType.includes('application/json')) {
-                        const body = await resp.text();
-                        console.error('La respuesta no es JSON. Content-Type:', contentType);
-                        console.error('Cuerpo recibido:', body);
-                        throw new Error('La API devolvió HTML u otro formato, no JSON.');
-                    }
-
-                    return resp.json();
-                })
-                .then(data => {
-                    console.log('JSON recibido de la API:', data);
-
-                    // Quitar skeleton
-                    cards.forEach(card => card.classList.remove('is-loading'));
-
-                    // Estado general del sistema
-                    if (systemStatusEl) {
-                        systemStatusEl.textContent = 'Operacional';
-                        systemStatusEl.classList.remove('pill--danger', 'pill--warn');
-                        systemStatusEl.classList.add('pill--ok');
-                    }
-
-                    // === Temperatura ===
-                    const temp = Number(data.temperaturaC);
-                    if (!Number.isNaN(temp) && tempValueEl && tempStatusEl && tempCard) {
-                        tempValueEl.textContent = temp.toFixed(1);
-
-                        let state = 'ok';
-                        let label = 'Óptimo';
-                        if (temp < 15 || temp > 35) {
-                            state = 'danger';
-                            label = 'Crítico';
-                        } else if (temp < 18 || temp > 30) {
-                            state = 'warn';
-                            label = 'Alerta';
-                        }
-
-                        setCardState(tempCard, state);
-                        setPillState(tempStatusEl, state, label);
-                    }
-
-                    // === Humedad ===
-                    const hum = Number(data.humedadRelativa);
-                    if (!Number.isNaN(hum) && humValueEl && humStatusEl && humCard) {
-                        humValueEl.textContent = hum.toFixed(1);
-
-                        let state = 'ok';
-                        let label = 'Estable';
-                        if (hum < 30 || hum > 80) {
-                            state = 'danger';
-                            label = 'Crítica';
-                        } else if (hum < 40 || hum > 60) {
-                            state = 'warn';
-                            label = 'Alerta';
-                        }
-
-                        setCardState(humCard, state);
-                        setPillState(humStatusEl, state, label);
-                    }
-
-                    // === Fuego Detectado ===
-                    const fuego = Boolean(data.fuegoDetectado);
-                    if (fireStateEl && fireStatusEl && fireCard) {
-                        if (fuego) {
-                            fireStateEl.textContent = '¡FUEGO DETECTADO!';
-                            if (fireMetaEl) fireMetaEl.textContent = 'Revisar y evacuar la zona.';
-                            setCardState(fireCard, 'danger');
-                            setPillState(fireStatusEl, 'danger', 'ALERTA');
-                        } else {
-                            fireStateEl.textContent = 'Normal';
-                            if (fireMetaEl) fireMetaEl.textContent = 'Sin detección de llamas';
-                            setCardState(fireCard, 'ok');
-                            setPillState(fireStatusEl, 'ok', 'Normal');
-                        }
-                    }
-
-                    // === Humo / Gas (gasPpm) ===
-                    const gas = Number(data.gasPpm);
-                    if (!Number.isNaN(gas) && smokeStateEl && smokeStatusEl && smokeCard) {
-                        let state = 'ok';
-                        let label = 'Normal';
-                        let message = 'Sin humo detectado';
-
-                        if (gas >= 800) {
-                            state = 'danger';
-                            label = 'ALERTA';
-                            message = '¡Humo denso detectado!';
-                            smokeStateEl.classList.add('card__value--alert');
-                        } else if (gas >= 400) {
-                            state = 'warn';
-                            label = 'PRECAUCIÓN';
-                            message = 'Presencia de humo';
-                            smokeStateEl.classList.add('card__value--alert');
-                        } else {
-                            smokeStateEl.classList.remove('card__value--alert');
-                        }
-
-                        smokeStateEl.textContent = `${message} (${gas.toFixed(0)} ppm)`;
-                        setCardState(smokeCard, state);
-                        setPillState(smokeStatusEl, state, label);
+                fetch(endpoint, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'ngrok-skip-browser-warning': 'true'
                     }
                 })
-                .catch(err => {
-                console.error('Error en fetch o parseo:', err);
-                cards.forEach(card => card.classList.remove('is-loading'));
-                if (systemStatusEl) {
-                    systemStatusEl.textContent = 'Sin conexión';
-                    systemStatusEl.classList.remove('pill--ok', 'pill--warn');
-                    systemStatusEl.classList.add('pill--danger');
-                }
-            });
+                    .then(async resp => {
+                        const contentType = resp.headers.get('content-type') || '';
+
+                        if (!resp.ok) {
+                            const errorBody = await resp.text();
+                            console.error('Cuerpo de error (no JSON):', errorBody);
+                            throw new Error(`Error HTTP ${resp.status}: ${resp.statusText}`);
+                        }
+
+                        if (!contentType.includes('application/json')) {
+                            const body = await resp.text();
+                            console.error('La respuesta no es JSON. Content-Type:', contentType);
+                            throw new Error('La API devolvió HTML u otro formato, no JSON.');
+                        }
+
+                        return resp.json();
+                    })
+                    .then(data => {
+                        console.log('Datos recibidos:', data);
+
+                        // Quitar skeleton (si estuviera activo)
+                        cards.forEach(card => card.classList.remove('is-loading'));
+
+                        // Estado general del sistema
+                        if (systemStatusEl) {
+                            systemStatusEl.textContent = 'Operacional';
+                            systemStatusEl.classList.remove('pill--danger', 'pill--warn');
+                            systemStatusEl.classList.add('pill--ok');
+                        }
+
+                        // === Temperatura ===
+                        const temp = Number(data.temperaturaC);
+                        if (!Number.isNaN(temp) && tempValueEl && tempStatusEl && tempCard) {
+                            tempValueEl.textContent = temp.toFixed(1);
+
+                            let state = 'ok';
+                            let label = 'Óptimo';
+                            if (temp < 15 || temp > 35) {
+                                state = 'danger';
+                                label = 'Crítico';
+                            } else if (temp < 18 || temp > 30) {
+                                state = 'warn';
+                                label = 'Alerta';
+                            }
+
+                            setCardState(tempCard, state);
+                            setPillState(tempStatusEl, state, label);
+                        }
+
+                        // === Humedad ===
+                        const hum = Number(data.humedadRelativa);
+                        if (!Number.isNaN(hum) && humValueEl && humStatusEl && humCard) {
+                            humValueEl.textContent = hum.toFixed(1);
+
+                            let state = 'ok';
+                            let label = 'Estable';
+                            if (hum < 30 || hum > 80) {
+                                state = 'danger';
+                                label = 'Crítica';
+                            } else if (hum < 40 || hum > 60) {
+                                state = 'warn';
+                                label = 'Alerta';
+                            }
+
+                            setCardState(humCard, state);
+                            setPillState(humStatusEl, state, label);
+                        }
+
+                        // === Fuego Detectado ===
+                        const fuego = Boolean(data.fuegoDetectado);
+                        if (fireStateEl && fireStatusEl && fireCard) {
+                            if (fuego) {
+                                fireStateEl.textContent = '¡FUEGO DETECTADO!';
+                                if (fireMetaEl) fireMetaEl.textContent = 'Revisar y evacuar la zona.';
+                                setCardState(fireCard, 'danger');
+                                setPillState(fireStatusEl, 'danger', 'ALERTA');
+                            } else {
+                                fireStateEl.textContent = 'Normal';
+                                if (fireMetaEl) fireMetaEl.textContent = 'Sin detección de llamas';
+                                setCardState(fireCard, 'ok');
+                                setPillState(fireStatusEl, 'ok', 'Normal');
+                            }
+                        }
+
+                        // === Humo / Gas (gasPpm) ===
+                        const gas = Number(data.gasPpm);
+                        if (!Number.isNaN(gas) && smokeStateEl && smokeStatusEl && smokeCard) {
+                            let state = 'ok';
+                            let label = 'Normal';
+                            let message = 'Sin humo detectado';
+
+                            if (gas >= 800) {
+                                state = 'danger';
+                                label = 'ALERTA';
+                                message = '¡Humo denso detectado!';
+                                smokeStateEl.classList.add('card__value--alert');
+                            } else if (gas >= 400) {
+                                state = 'warn';
+                                label = 'PRECAUCIÓN';
+                                message = 'Presencia de humo';
+                                smokeStateEl.classList.add('card__value--alert');
+                            } else {
+                                smokeStateEl.classList.remove('card__value--alert');
+                            }
+
+                            smokeStateEl.textContent = `${message} (${gas.toFixed(0)} ppm)`;
+                            setCardState(smokeCard, state);
+                            setPillState(smokeStatusEl, state, label);
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error en fetch o parseo:', err);
+                        // No quitamos loading para que se note que algo pasa, o mostramos error
+                        if (systemStatusEl) {
+                            systemStatusEl.textContent = 'Sin conexión';
+                            systemStatusEl.classList.remove('pill--ok', 'pill--warn');
+                            systemStatusEl.classList.add('pill--danger');
+                        }
+                    });
+            };
+
+            // 4) Ejecución inicial y periódica
+            // Carga inicial con skeleton
+            cards.forEach(card => card.classList.add('is-loading'));
+            fetchData();
+
+            // Actualizar cada 60 segundos (60000 ms)
+            setInterval(fetchData, 60000);
         });
-</script>
+    </script>
 
 
 </body>
+
 </html>
