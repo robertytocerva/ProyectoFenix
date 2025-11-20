@@ -153,7 +153,7 @@
 
         <!-- ===== PIE DE PÁGINA ===== -->
         <footer class="footer">
-            <p>&copy; 2025 Fenix Forestal. Todos los derechos reservados.</p>
+            <p>&copy; 2025 CXT - robertytocerva. Todos los derechos reservados.</p>
         </footer>
     </div>
 
@@ -222,7 +222,7 @@
                 // Mostrar loading solo si es la primera carga o si se desea indicar actualización
                 // cards.forEach(card => card.classList.add('is-loading')); 
 
-                const baseUrl = 'https://2fd324cfbe21.ngrok-free.app';
+                const baseUrl = 'https://rude-lizards-bathe.loca.lt';
                 const endpoint = `${baseUrl}/api/lecturas/usuario/${encodeURIComponent(userId)}/ultima`;
                 console.log('Actualizando datos desde:', endpoint);
 
@@ -230,7 +230,7 @@
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json',
-                        'ngrok-skip-browser-warning': 'true'
+                        'bypass-tunnel-reminder': 'true'
                     }
                 })
                     .then(async resp => {
@@ -360,7 +360,7 @@
             fetchData();
 
             // Actualizar cada 60 segundos (60000 ms)
-            setInterval(fetchData, 60000);
+            setInterval(fetchData, 30000);
         });
     </script>
 
