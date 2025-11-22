@@ -76,11 +76,10 @@
                 submitBtn.textContent = 'Registrando...';
 
                 try {
-                    const response = await fetch('https://rude-lizards-bathe.loca.lt/api/auth/registro', {
+                    const response = await fetch('https://fenixapi-wmq6.onrender.com/api/auth/registro', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'bypass-tunnel-reminder': 'true'
+                            'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
                             correo: correo,

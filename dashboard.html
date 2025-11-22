@@ -222,15 +222,14 @@
                 // Mostrar loading solo si es la primera carga o si se desea indicar actualización
                 // cards.forEach(card => card.classList.add('is-loading')); 
 
-                const baseUrl = 'https://rude-lizards-bathe.loca.lt';
+                const baseUrl = 'https://fenixapi-wmq6.onrender.com';
                 const endpoint = `${baseUrl}/api/lecturas/usuario/${encodeURIComponent(userId)}/ultima`;
                 console.log('Actualizando datos desde:', endpoint);
 
                 fetch(endpoint, {
                     method: 'GET',
                     headers: {
-                        'Accept': 'application/json',
-                        'bypass-tunnel-reminder': 'true'
+                        'Accept': 'application/json'
                     }
                 })
                     .then(async resp => {
