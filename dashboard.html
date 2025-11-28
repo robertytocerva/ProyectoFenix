@@ -323,12 +323,12 @@
                             let label = 'Normal';
                             let message = 'Sin humo detectado';
 
-                            if (gas >= 800) {
+                            if (gas >= 1000) {
                                 state = 'danger';
                                 label = 'ALERTA';
                                 message = '¡Humo denso detectado!';
                                 smokeStateEl.classList.add('card__value--alert');
-                            } else if (gas >= 400) {
+                            } else if (gas >= 650) {
                                 state = 'warn';
                                 label = 'PRECAUCIÓN';
                                 message = 'Presencia de humo';
